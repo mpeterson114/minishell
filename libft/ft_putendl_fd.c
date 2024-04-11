@@ -3,26 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putendl_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ilzhabur <ilzhabur@student.42madrid>       +#+  +:+       +#+        */
+/*   By: mpeterso <mpeterso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/26 17:21:55 by ilzhabur          #+#    #+#             */
-/*   Updated: 2022/09/26 17:21:58 by ilzhabur         ###   ########.fr       */
+/*   Created: 2022/10/07 14:21:46 by mpeterso          #+#    #+#             */
+/*   Updated: 2022/10/18 12:48:19 by mpeterso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_putendl_fd(char const *s, int fd)
+/* Writes the given string 's' to the file descriptor passed as a parameter, 
+    followed by a new line. */
+
+void	ft_putendl_fd(char *s, int fd)
 {
-	write(fd, s, ft_strlen(s));
+	ft_putstr_fd(s, fd);
 	write(fd, "\n", 1);
 }
 
-/*
-int main(void)
-{
-	char str[20] = "Life is good.";
-	ft_putendl_fd(str, 1);
-	return (0);
-}
-*/

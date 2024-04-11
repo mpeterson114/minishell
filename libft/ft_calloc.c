@@ -3,21 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ilzhabur <ilzhabur@student.42madrid>       +#+  +:+       +#+        */
+/*   By: mpeterso <mpeterso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/20 08:01:02 by ilzhabur          #+#    #+#             */
-/*   Updated: 2022/09/20 08:17:03 by ilzhabur         ###   ########.fr       */
+/*   Created: 2022/10/04 11:01:58 by mpeterso          #+#    #+#             */
+/*   Updated: 2022/10/19 10:57:23 by mpeterso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
+/* Allocates an array of 'count' elements of 'size' bytes each. 
+	The allocated memory is then set to zero */
+
 void	*ft_calloc(size_t count, size_t size)
 {
 	void	*ptr;
+	size_t	total;
 
-	ptr = malloc(count * size);
-	if (ptr)
-		ft_bzero(ptr, count * size);
+	if (count == __SIZE_MAX__ || size == __SIZE_MAX__)
+		return (0);
+	total = count * size;
+	ptr = (void *)malloc(total);
+	if (!ptr)
+		return (0);
+	ft_bzero(ptr, total);
 	return (ptr);
 }

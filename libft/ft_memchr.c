@@ -3,50 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ilzhabur <ilzhabur@student.42madrid>       +#+  +:+       +#+        */
+/*   By: mpeterso <mpeterso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/19 17:32:43 by ilzhabur          #+#    #+#             */
-/*   Updated: 2022/09/19 17:37:46 by ilzhabur         ###   ########.fr       */
+/*   Created: 2022/09/26 12:26:50 by mpeterso          #+#    #+#             */
+/*   Updated: 2022/10/27 12:52:08 by mpeterso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/*
-	The memchr() function locates the first occurrence of c 
-	(converted to an unsigned char) in string s
-*/
-
 #include "libft.h"
+
+/* Searches 'n' bytes of the memory area pointed to by 's' for the first 
+	occurence of 'c'. Both 'c' and the bytes of 's' are interpreted as unsigned 
+	char. A pointer to the matching byte is returned, or NULL if the character 
+	is not found within the given memory area */
 
 void	*ft_memchr(const void *s, int c, size_t n)
 {
-	size_t	i;
-	char	*p;
+	size_t		i;
 
 	i = 0;
-	p = (char *)s;
 	while (i < n)
 	{
-		if ((unsigned char)p[i] == (unsigned char)c)
-			return (p + i);
+		if (((unsigned char *)s)[i] == (unsigned char)c)
+			return ((void *)(s + i));
 		i++;
 	}
 	return (NULL);
 }
 
-/*
-int main (void) 
-{
-   const char str[] = "abc.def";
-   const char ch = '.';
-   char *dest1;
-   char *dest2;
-
-   dest1 = memchr(str, ch, 10);
-   dest2 = memchr(str, ch, 10);
-
-   printf("String after |%c| is - |%s|\n", ch, dest1);
-   printf("String after |%c| is - |%s|\n", ch, dest2);
-
-   return(0);
-}
-*/

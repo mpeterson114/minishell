@@ -3,58 +3,43 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ilzhabur <ilzhabur@student.42madrid>       +#+  +:+       +#+        */
+/*   By: mpeterso <mpeterso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/19 20:50:02 by ilzhabur          #+#    #+#             */
-/*   Updated: 2022/09/20 07:56:11 by ilzhabur         ###   ########.fr       */
+/*   Created: 2022/09/26 12:30:29 by mpeterso          #+#    #+#             */
+/*   Updated: 2022/10/27 10:14:52 by mpeterso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	is_space(char c)
-{
-	if (c == 32 || (c >= 9 && c <= 13))
-		return (1);
-	return (0);
-}
+/* Converts a char string to an int */
 
-long	ft_atoi(const char *str)
+int	ft_atoi(const char *str)
 {
-	int		i;
-	int		sign;
-	long	result;
+	int				i;
+	int				sign;
+	unsigned long	result;
 
 	i = 0;
 	sign = 1;
 	result = 0;
-	while (str[i] && is_space(str[i]))
+	while (str[i] == ' ' || (str[i] >= 9 && str[i] <= 13))
 		i++;
-	if (str[i] == '-' || str[i] == '+')
+	if (str[i] == '+' || str[i] == '-')
 	{
 		if (str[i] == '-')
 			sign *= -1;
 		i++;
-	}
-	while (str[i] && ft_isdigit(str[i]))
+	}	
+	while (str[i] >= '0' && str[i] <= '9')
 	{
-		result *= 10;
-		result += str[i] - '0';
+		result = (result * 10) + (str[i] - '0');
+		if (result > 9223372036854775808UL && sign == -1)
+			return (0);
+		if (result > 9223372036854775808UL && sign == 1)
+			return (-1);
 		i++;
 	}
 	return (result * sign);
 }
 
-/*
-#include <stdio.h>
-#include <stdlib.h>
-
-int main(void)
-{
-    char str[40] = "   -1234ab567";
-    printf("String: %s\n", str);
-    printf("Atoi: %d\n", atoi(str));
-    printf("Ft_atoi: %d\n", ft_atoi(str));
-    return (0);
-}
-*/

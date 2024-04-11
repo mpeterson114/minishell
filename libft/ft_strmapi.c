@@ -3,33 +3,37 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ilzhabur <ilzhabur@student.42madrid>       +#+  +:+       +#+        */
+/*   By: mpeterso <mpeterso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/23 09:38:41 by ilzhabur          #+#    #+#             */
-/*   Updated: 2022/09/23 09:38:44 by ilzhabur         ###   ########.fr       */
+/*   Created: 2022/10/07 14:18:36 by mpeterso          #+#    #+#             */
+/*   Updated: 2022/10/18 13:06:28 by mpeterso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
+/* Applies the given function 'f' to each character
+	in the given string 's' and allocates sufficient memory to store the
+	resulting new string. */
+
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {
-	int		len;
-	int		i;
-	char	*result;
+	unsigned int	len;
+	char			*new;
+	unsigned int	i;
 
 	if (!s)
 		return (NULL);
 	len = ft_strlen(s);
-	i = 0;
-	result = malloc(sizeof(char) * len + 1);
-	if (!result)
+	new = (char *)malloc(sizeof(char) * (len + 1));
+	if (!new)
 		return (NULL);
+	i = 0;
 	while (i < len)
 	{
-		result[i] = f(i, s[i]);
+		new[i] = f(i, s[i]);
 		i++;
 	}
-	result[i] = 0;
-	return (result);
+	new[len] = '\0';
+	return (new);
 }

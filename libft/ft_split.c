@@ -3,110 +3,81 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ilzhabur <ilzhabur@student.42madrid>       +#+  +:+       +#+        */
+/*   By: mpeterso <mpeterso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/22 16:29:20 by ilzhabur          #+#    #+#             */
-/*   Updated: 2022/09/22 18:07:55 by ilzhabur         ###   ########.fr       */
+/*   Created: 2022/10/12 12:55:42 by mpeterso          #+#    #+#             */
+/*   Updated: 2022/10/25 18:24:19 by mpeterso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	count_words(char const *str, char c)
-{
-	int	i;
-	int	count;
+/* Allocates and copies an array of strings by splitting the given string 's' by
+	the separator 'c' passed as a parameter. The function returns an array of 
+	strings resulting from the split and NULL if memory allocation fails */
 
-	i = 0;
+static unsigned int	ft_wdcount(const char *str, char c)
+{
+	unsigned int	index;
+	unsigned int	count;
+
+	index = 0;
 	count = 0;
-	while (str[i])
+	if (!str)
+		return (0);
+	while (*str)
 	{
-		while (str[i] && str[i] == c)
-			i++;
-		if (str[i] && str[i] != c)
+		if (*str != c && index == 0)
 		{
-			while (str[i] && str[i] != c)
-				i++;
+			index = 1;
 			count++;
-		}	
+		}
+		else if (*str == c)
+			index = 0;
+		str++;
 	}
 	return (count);
 }
 
-static int	word_len(char const *str, char c)
+static char	*ft_wdcpy(const char *str, size_t start, size_t end)
 {
-	int	len;
+	unsigned int	i;
+	char			*word;
 
-	len = 0;
-	while (str[len] && str[len] != c)
-		len++;
-	return (len);
-}
-
-static char	**free_mem(char **arr, int i)
-{
-	arr[i] = NULL;
-	while (i--)
-		free(arr[i]);
-	free(arr);
-	return (NULL);
-}
-
-static char	**arrey_malloc(char const *str, int word_number)
-{
-	char	**arr;
-
-	if (!str)
-		return (NULL);
-	arr = malloc(sizeof(char *) * (word_number + 1));
-	if (!arr)
-		return (NULL);
-	arr[word_number] = NULL;
-	return (arr);
-}
-
-char	**ft_split(char const *str, char c)
-{
-	char	**arr;
-	int		word_number;
-	int		i;
-	int		p;
-
-	word_number = count_words(str, c);
-	arr = arrey_malloc(str, word_number);
-	if (!arr)
-		return (NULL);
 	i = 0;
-	p = 0;
-	while (i < word_number)
+	word = (char *)malloc((end - start + 1) * sizeof(char));
+	if (!word || !str)
+		return (0);
+	while (start < end)
+		word[i++] = str[start++];
+	word[i] = '\0';
+	return (word);
+}
+
+char	**ft_split(char const *s, char c)
+{
+	size_t			i;
+	size_t			j;
+	char			**strings;
+	int				index;
+
+	strings = (char **)malloc(((ft_wdcount(s, c)) + 1) * sizeof(char *));
+	if (!s || !strings)
+		return (0);
+	i = 0;
+	j = 0;
+	index = -1;
+	while (i <= ft_strlen(s))
 	{
-		while (str[p] && str[p] == c)
-			p++;
-		arr[i] = ft_substr(str, p, word_len(str + p, c));
-		if (arr[i] == NULL)
-			return (arr = free_mem(arr, i));
-		while (str[p] && str[p] != c)
-			p++;
+		if (s[i] != c && index < 0)
+			index = i;
+		else if ((s[i] == c || i == ft_strlen(s)) && index >= 0)
+		{
+			strings[j++] = ft_wdcpy(s, index, i);
+			index = -1;
+		}
 		i++;
 	}
-	return (arr);
+	strings[j] = 0;
+	return (strings);
 }
-
-/*
-#include <stdio.h>
-
-int main(void)
-{
-    int i;
-    char **arr;
-       
-    arr = ft_split("   one \t\n      2     three \t\n lala hello    ");
-    i = 0;
-    while (arr[i])
-    {
-        printf("string %d : %s\n", i, arr[i]);
-        i++;
-    }
-    return (0);
-}
-*/

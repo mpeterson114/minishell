@@ -1,28 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcat.c                                        :+:      :+:    :+:   */
+/*   ft_lstadd_back_bonus.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ilzhabur <ilzhabur@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: mpeterso <mpeterso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/31 15:26:04 by ilzhabur          #+#    #+#             */
-/*   Updated: 2023/11/12 18:55:56 by ilzhabur         ###   ########.fr       */
+/*   Created: 2022/10/18 11:07:33 by mpeterso          #+#    #+#             */
+/*   Updated: 2022/10/18 12:32:08 by mpeterso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strcat(char *dest, char *src)
-{
-	int	len;
-	int	i;
+/* Adds a new node to the end of a linked list */
 
-	i = 0;
-	len = ft_strlen(dest);
-	while (src[i] != '\0')
+void	ft_lstadd_back(t_list **lst, t_list *new)
+{
+	t_list	*temp;
+
+	temp = ft_lstlast(*lst);
+	if (temp == NULL)
 	{
-		dest[len++] = src[i++];
+		*lst = new;
+		return ;
 	}
-	dest[len] = '\0';
-	return (dest);
+	else
+		temp->next = new;
 }

@@ -3,53 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   ft_striteri.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ilzhabur <ilzhabur@student.42madrid>       +#+  +:+       +#+        */
+/*   By: mpeterso <mpeterso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/23 11:28:22 by ilzhabur          #+#    #+#             */
-/*   Updated: 2022/09/23 11:28:25 by ilzhabur         ###   ########.fr       */
+/*   Created: 2022/10/07 14:19:21 by mpeterso          #+#    #+#             */
+/*   Updated: 2022/10/25 15:47:16 by mpeterso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_striteri(char *s, void (*f)(unsigned int, char *))
-{
-	int	i;
+/* Applies the function 'f' passed as a parameter to each character within the
+	string 's' */
 
+void	ft_striteri(char *s, void (*f)(unsigned int, char*))
+{
+	unsigned int	i;
+
+	if (!s || !f)
+		return ;
 	i = 0;
-	if (s != NULL && f != NULL)
+	while (s[i] != '\0')
 	{
-		while (s[i])
-		{
-			f(i, s + i);
-			i++;
-		}
+		f(i, &s[i]);
+		i++;
 	}
 }
-
-/*
-#include <stdio.h>
-
-void	my_func(unsigned int i, char *c)
-{
-	if (*c >= 'a' && *c <= 'z')
-	{
-		*c -= 32;
-		printf("index = %d and the string = %s\n", i, c);
-	}
-	else if (*c >= 'A' && *c <= 'Z')
-	{
-		*c += 32;
-		printf("index = %d and the string = %s\n", i, c);
-	}
-}
-
-int main(void)
-{
-	char str[10] = "hELL0.";
-	printf("The original string is %s\n", str);
-	ft_striteri(str, my_func);
-	printf("The result string is %s\n", str);
-	return 0;
-}
-*/

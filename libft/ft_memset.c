@@ -3,39 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ilzhabur <ilzhabur@student.42madrid>       +#+  +:+       +#+        */
+/*   By: mpeterso <mpeterso@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/19 17:24:23 by ilzhabur          #+#    #+#             */
-/*   Updated: 2022/09/22 12:28:09 by ilzhabur         ###   ########.fr       */
+/*   Created: 2022/09/26 11:52:42 by mpeterso          #+#    #+#             */
+/*   Updated: 2022/09/28 19:36:49 by mpeterso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
+/* Fills the first 'len' bytes of the byte string 'b' with the value 'c'. Both 'b' and 'c' are interpreted as 
+	unsigned char. */
+
 void	*ft_memset(void *b, int c, size_t len)
 {
-	size_t			i;
+	size_t	i;
 
 	i = 0;
 	while (i < len)
-		*((unsigned char *)(b + i++)) = (unsigned char)c;
+	{
+		((unsigned char *)b)[i] = c;
+		i++;
+	}
 	return (b);
 }
 
-/*
-int main(void)
-{
-    char str1[50] = "12345678912345678123456789";
-    char str2[50] = "12345678912345678123456789";
-
-    printf("\nBefore memset(): %s\n", str1);
-    memset(str1 + 9, '.', 8 * sizeof(char));
-    printf("After memset():  %s", str1);
-
-    printf("\nBefore memset(): %s\n", str2);
-    ft_memset(str2 + 9, '.', 8 * sizeof(char));
-    printf("After memset():  %s", str2);
-
-    return 0;
-}
-*/

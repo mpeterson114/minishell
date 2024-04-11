@@ -1,26 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   ft_lstlast_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ilzhabur  <ilzhabur@student.42.fr>         +#+  +:+       +#+        */
+/*   By: mpeterso <mpeterso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/28 19:04:20 by ilzhabur          #+#    #+#             */
-/*   Updated: 2022/11/28 19:04:40 by ilzhabur         ###   ########.fr       */
+/*   Created: 2022/10/18 11:07:20 by mpeterso          #+#    #+#             */
+/*   Updated: 2022/10/18 12:37:19 by mpeterso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
-int	ft_printf(const char *s, ...)
+/* Locates the last node within a linked list */
+
+t_list	*ft_lstlast(t_list *lst)
 {
-	va_list	ap;
-	int		len;
-
-	if (!s)
-		return (-1);
-	va_start(ap, s);
-	len = parse_string((char *)s, ap);
-	va_end(ap);
-	return (len);
+	if (!lst)
+		return (0);
+	while (lst->next != NULL)
+		lst = lst->next;
+	return (lst);
 }

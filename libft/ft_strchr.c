@@ -3,14 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ilzhabur <ilzhabur@student.42madrid>       +#+  +:+       +#+        */
+/*   By: mpeterso <mpeterso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/19 17:44:15 by ilzhabur          #+#    #+#             */
-/*   Updated: 2022/09/19 17:45:45 by ilzhabur         ###   ########.fr       */
+/*   Created: 2022/09/26 11:49:00 by mpeterso          #+#    #+#             */
+/*   Updated: 2022/10/25 19:41:45 by mpeterso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+
+/* Finds and returns a pointer to the first occurence of character 'c' 
+	in string 's'. If the character is not found, the function returns
+	NULL */
 
 char	*ft_strchr(const char *s, int c)
 {
@@ -19,29 +23,12 @@ char	*ft_strchr(const char *s, int c)
 	i = 0;
 	while (s[i])
 	{
-		if (s[i] == (char)c)
-			return ((char *)(s + i));
+		if ((unsigned char)s[i] == (unsigned char)c)
+			return ((char *)s + i);
 		i++;
 	}
-	if (s[i] == (char)c)
-		return ((char *)(s + i));
-	return (NULL);
+	if (((unsigned char)c) == '\0')
+		return ((char *)s + i);
+	return (0);
 }
 
-/*
-#include <stdio.h>
-#include <string.h>
-
-int main (void) 
-{
-   const char str[] = "This is just a String"; 
-   const char ch = 'b'; 
-   char *p;
-   char *p2;
-   p = strchr(str, ch);
-   p2 = strchr(str, ch);
-   printf("%s\n", p);
-   printf("%s\n", p2);
-   return 0;
-}
-*/

@@ -3,45 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ilzhabur <ilzhabur@student.42madrid>       +#+  +:+       +#+        */
+/*   By: mpeterso <mpeterso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/26 16:50:26 by ilzhabur          #+#    #+#             */
-/*   Updated: 2022/09/26 16:50:29 by ilzhabur         ###   ########.fr       */
+/*   Created: 2022/10/07 14:22:25 by mpeterso          #+#    #+#             */
+/*   Updated: 2022/10/18 12:49:05 by mpeterso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_putnbr_fd(long long nb, int fd)
+/* Writes the given integer 'n' to the file descriptor passed as a parameter
+	by converting it to a char value */
+
+void	ft_putnbr_fd(int n, int fd)
 {
-	if (nb < 0)
+	unsigned int	nbr;
+
+	if (n < 0)
 	{
-		write(fd, "-", 1);
-		ft_putnbr_fd(-nb, fd);
-	}
-	else if (nb >= 10)
-	{
-		ft_putnbr_fd(nb / 10, fd);
-		ft_putnbr_fd(nb % 10, fd);
+		ft_putchar_fd('-', fd);
+		nbr = (unsigned int)(n * -1);
 	}
 	else
-	{
-		nb += '0';
-		write(fd, &nb, 1);
-	}
+		nbr = (unsigned int)n;
+	if (nbr > 9)
+		ft_putnbr_fd ((nbr / 10), fd);
+	ft_putchar_fd((48 + nbr % 10), fd);
 }
-
-/*
-#include <unistd.h>
-
-int main(void)
-{
-    ft_putnbr(2147483647, 1);
-    write(1, "\n", 1);
-    ft_putnbr(0, 1);
-    write(1, "\n", 1);
-    ft_putnbr(-2147483648, 1);
-    write(1, "\n", 1);
-    return (0);
-}
-*/

@@ -1,26 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strnew.c                                        :+:      :+:    :+:   */
+/*   ft_lstsize_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ilzhabur <ilzhabur@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: mpeterso <mpeterso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/16 16:14:57 by ilzhabur          #+#    #+#             */
-/*   Updated: 2023/07/21 12:25:23 by ilzhabur         ###   ########.fr       */
+/*   Created: 2022/10/18 11:07:11 by mpeterso          #+#    #+#             */
+/*   Updated: 2022/10/20 11:05:00 by mpeterso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strnew(size_t size)
-{
-	char	*str;
+/* Measures the size of a given list by counting the number of nodes
+	that it contains */
 
-	str = (char *)malloc(sizeof(char) * (size + 1));
-	if (str == NULL)
-		return (NULL);
-	while (size > 0)
-		str[size--] = '\0';
-	str[0] = '\0';
-	return (str);
+int	ft_lstsize(t_list *lst)
+{
+	int	count;
+
+	if (!lst)
+		return (0);
+	count = 1;
+	while (lst->next != NULL)
+	{
+		lst = lst->next;
+		count++;
+	}
+	return (count);
 }

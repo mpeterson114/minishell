@@ -3,80 +3,60 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ilzhabur <ilzhabur@student.42madrid>       +#+  +:+       +#+        */
+/*   By: mpeterso <mpeterso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/22 18:19:33 by ilzhabur          #+#    #+#             */
-/*   Updated: 2022/09/23 08:11:46 by ilzhabur         ###   ########.fr       */
+/*   Created: 2022/10/07 14:17:50 by mpeterso          #+#    #+#             */
+/*   Updated: 2022/10/18 12:30:35 by mpeterso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static void	check_nbr(int *n, int *is_negative)
-{
-	if (*n < 0)
-	{
-		*n *= -1;
-		*is_negative = 1;
-	}
-}
+/* Converts int value 'n' into a string of characters */
 
-static int	ft_size(int n)
+static unsigned int	ft_numlen(int n)
 {
-	int	count;
+	unsigned int	len;
 
-	count = 0;
+	len = 0;
 	if (n == 0)
-		count = 1;
-	while (n)
+		len = 1;
+	if (n < 0)
+		len = len + 1;
+	while (n != 0)
 	{
-		count++;
-		n /= 10;
+		n = n / 10;
+		len = len + 1;
 	}
-	return (count);
+	return (len);
 }
 
 char	*ft_itoa(int n)
 {
-	char	*str;
-	int		size;
-	int		is_negative;
+	unsigned int	num;
+	unsigned int	len;
+	char			*str;
 
-	if (n == -2147483648)
-		return (ft_strdup("-2147483648"));
-	is_negative = 0;
-	check_nbr(&n, &is_negative);
-	size = 1 + ft_size(n);
-	size += is_negative;
-	str = malloc(size * sizeof(char));
+	len = ft_numlen(n);
+	str = (char *)malloc(sizeof(char) * (len + 1));
 	if (!str)
-		return (NULL);
-	str[--size] = 0;
-	while (size--)
+		return (0);
+	if (n < 0)
 	{
-		str[size] = n % 10 + '0';
-		n /= 10;
-	}
-	if (is_negative)
 		str[0] = '-';
+		num = (-n);
+	}
+	else
+		num = n;
+	if (num == 0)
+		str[0] = '0';
+	str[len] = '\0';
+	while (num != 0)
+	{
+		str[len - 1] = (num % 10) + '0';
+		num = num / 10;
+		len--;
+	}
 	return (str);
 }
 
-/*
-int main(void)
-{
-	
-	printf("%s\n", ft_itoa(0));
-    printf("%s\n", ft_itoa(1));
-    printf("%s\n", ft_itoa(-1));
-    printf("%s\n", ft_itoa(-10));
-    printf("%s\n", ft_itoa(10));
-    printf("%s\n", ft_itoa(8124));
-    printf("%s\n", ft_itoa(-9874));
-    printf("%s\n", ft_itoa(-2147483648LL));
-    printf("%s\n", ft_itoa(214748364));
-	
-	
-	return (0);
-}
-*/

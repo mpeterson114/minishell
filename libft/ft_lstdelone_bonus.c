@@ -1,28 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_hexlen.c                                        :+:      :+:    :+:   */
+/*   ft_lstdelone_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ilzhabur <ilzhabur@student.42madrid>       +#+  +:+       +#+        */
+/*   By: mpeterso <mpeterso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/28 09:21:31 by ilzhabur          #+#    #+#             */
-/*   Updated: 2022/10/28 09:21:34 by ilzhabur         ###   ########.fr       */
+/*   Created: 2022/10/18 11:07:43 by mpeterso          #+#    #+#             */
+/*   Updated: 2022/10/25 16:54:10 by mpeterso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_hexlen(unsigned long long n)
-{
-	int	i;
+/* Deletes a node from the linked list using the function 'del' passed
+	as a parameter, then frees the memory used by that node */
 
-	i = 0;
-	if (n == 0)
-		i = 1;
-	while (n)
-	{
-		n /= 16;
-		i++;
-	}
-	return (i);
+void	ft_lstdelone(t_list *lst, void (*del)(void *))
+{
+	if (!lst || !del)
+		return ;
+	del(lst->content);
+	free(lst);
 }

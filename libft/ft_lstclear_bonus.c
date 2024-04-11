@@ -1,24 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_tolower.c                                       :+:      :+:    :+:   */
+/*   ft_lstclear_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mpeterso <mpeterso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/26 11:54:10 by mpeterso          #+#    #+#             */
-/*   Updated: 2022/10/25 19:18:04 by mpeterso         ###   ########.fr       */
+/*   Created: 2022/10/18 11:07:53 by mpeterso          #+#    #+#             */
+/*   Updated: 2022/10/27 13:48:55 by mpeterso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-/* Converts character 'c', if an uppercase letter, to a lowercase letter */
+/* Deletes each node of a linked list with the function
+	passed as a parameter. It then frees the memory of each node and finally
+	sets the list pointer to NULL. */
 
-int	ft_tolower(int c)
+void	ft_lstclear(t_list **lst, void (*del)(void *))
 {
-	if (c >= 'A' && c <= 'Z')
+	t_list	*temp;
+
+	if (!lst || !*lst || !del)
+		return ;
+	while (*lst)
 	{
-		return (c + 32);
+		temp = (*lst)->next;
+		ft_lstdelone(*lst, del);
+		*lst = temp;
 	}
-	return (c);
+	*lst = NULL;
 }

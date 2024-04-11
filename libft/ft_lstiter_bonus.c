@@ -1,23 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr.c                                        :+:      :+:    :+:   */
+/*   ft_lstiter_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ilzhabur <ilzhabur@student.42madrid>       +#+  +:+       +#+        */
+/*   By: mpeterso <mpeterso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/01 10:37:27 by ilzhabur          #+#    #+#             */
-/*   Updated: 2022/11/01 10:37:29 by ilzhabur         ###   ########.fr       */
+/*   Created: 2022/10/18 11:08:29 by mpeterso          #+#    #+#             */
+/*   Updated: 2022/10/18 12:36:33 by mpeterso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_putstr(char *s)
-{
-	int	i;
+/* Applies the function 'f' passed as a parameter to the content of each
+	node within a linked list */
 
-	i = 0;
-	if (s != NULL)
-		while (s[i])
-			write(1, &s[i++], 1);
+void	ft_lstiter(t_list *lst, void (*f)(void *))
+{
+	if (!lst || !f)
+		return ;
+	while (lst)
+	{
+		f(lst->content);
+		lst = lst->next;
+	}
 }

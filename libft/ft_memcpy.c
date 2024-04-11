@@ -3,60 +3,37 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ilzhabur <ilzhabur@student.42madrid>       +#+  +:+       +#+        */
+/*   By: mpeterso <mpeterso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/19 17:40:52 by ilzhabur          #+#    #+#             */
-/*   Updated: 2022/09/19 17:41:43 by ilzhabur         ###   ########.fr       */
+/*   Created: 2022/09/26 11:51:59 by mpeterso          #+#    #+#             */
+/*   Updated: 2022/10/28 11:32:02 by mpeterso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
+/* Copies 'n' bytes from the byte string 'src' to the byte string 'dst'.
+	Does not control for memory overlaps (use ft_memmove in this case).
+	Returns a pointer to the modified 'dst' */ 
+
 void	*ft_memcpy(void *dst, const void *src, size_t n)
 {
-	size_t			i;
+	const char	*csrc;
+	char		*cdst;
 
-	if (dst == NULL && src == NULL)
-		return (NULL);
-	i = 0;
-	while (i < n)
+	if ((dst == src) || n == '\0')
 	{
-		((char *)dst)[i] = ((char *)src)[i];
-		i++;
+		return (dst);
 	}
-	return (dst);
+	if (dst == 0 && src == 0)
+	{
+		return (0);
+	}
+	csrc = (const char *)src;
+	cdst = (char *)dst;
+	while (n--)
+	{
+		cdst[n] = csrc[n];
+	}
+	return (cdst);
 }
-
-/*
-int main(void)
-{
-    char s[5]={'s','a','\0','c','h'};
-    int i;
-
-    char membuff1[5];
-    char membuff2[5];
-    memset(membuff1, 0, 5); // init both buffers to nulls
-    memset(membuff2, 0, 5);
-
-    memcpy(membuff1, s, 5);
-    ft_memcpy(membuff2, s, 5);
-
-    i = 0;
-    while (i < 5)
-    {
-        printf("%c ", membuff1[i]);
-        i++;
-    }
-    printf("\n");
-
-    i = 0;
-    while (i < 5)
-    {
-        printf("%c ", membuff2[i]);
-        i++;
-    }
-    printf("\n");
-
-    return 0;
-}
-*/
