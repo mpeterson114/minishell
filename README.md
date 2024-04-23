@@ -1,13 +1,25 @@
-# Minishell 
+# Minishell 🐚
 ## Summary
 A Bash-inspired shell programmed in C. Capable of command parsing and execution, environmental variable expansion and some builtin functions, along with other shell functionalities such as redirection, pipes and signal handling. 
 
-## Usage
+## ⚙️ Usage
 Clone the repository:
 ```
+git clone git@github.com:mpeterson114/minishell.git
+```
+Compile:
+```
+cd minishell && make
+```
+And run the executable:
+```
+./minishell
+```
+A prompt will appear. You can then enter your shell commands to be executed.
 
+To exit the Minishell, enter the ```ctrl-d```command.
 
-## Supported Features
+## 📌 Supported Features
 * Prompt display
 * Command history (up and down arrows)
 * System executables available from the environment (```ls```, ```cat```, ```grep```, etc.)
