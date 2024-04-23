@@ -1,6 +1,7 @@
 # Minishell 🐚
 ## Summary
 A Bash-inspired shell programmed in C. Capable of command parsing and execution, environmental variable expansion and some builtin functions, along with other shell functionalities such as redirection, pipes and signal handling. 
+> This was a two-person project completed with **ilonazh** 
 
 ## ⚙️ Usage
 Clone the repository:
@@ -46,3 +47,4 @@ To exit the Minishell, enter the ```ctrl-d```command.
   * ```ctrl-\``` does nothing
 
 Minishell does _not_ support ```\```, ```;```, ```&&```, ```||```, or wildcards.
+
