@@ -34,7 +34,7 @@ int	main(int ac, char **av, char **env)
 	ft_memset(&sh, 0, sizeof(t_shell));
 	if (ac != 1)
 	{
-		ft_putendl_fd(R"Error: Invalid argument input.\n"N, 2);
+		ft_putendl_fd(R "Error: Invalid argument input.\n" N, 2);
 		ft_putendl_fd(P"Example: \n▶ ./minishell"N, 2);
 		exit_minishell(NULL, EXIT_FAILURE);
 	}

@@ -16,7 +16,7 @@
 # include <stdarg.h>
 # include <stdio.h>
 # include <limits.h>
-# include "../libft/libft.h"
+# include "../libft.h"
 
 int ft_putnbr(int nb);
 int ft_unsigned_len(unsigned int nb);

@@ -22,7 +22,7 @@ CFLAGS	= -Werror -Wextra -Wall
 SRC_PATH = ./sources/
 OBJ_PATH = ./objects/
 INC_PATH = ./includes/
-SRC		= 	main.c \
+SRC	= 	main.c \
 			env/env.c \
 			env/env_builtins.c \
 			env/env_utils.c \

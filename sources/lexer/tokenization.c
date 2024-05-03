@@ -32,9 +32,9 @@ int	tokenization(t_shell *sh, char *line)
 	if (q_status != QOK)
 	{
 		if (q_status == DQ)
-			syntax_errmsg("syntax error: unclosed quote:", R"\""N, true);
+			syntax_errmsg("syntax error: unclosed quote:", R "\"" N, true);
 		else if (q_status == SQ)
-			syntax_errmsg("syntax error: unclosed quote:", R"\'"N, true);
+			syntax_errmsg("syntax error: unclosed quote:", R "\'" N, true);
 		return (FAILURE);
 	}
 	return (OK);
