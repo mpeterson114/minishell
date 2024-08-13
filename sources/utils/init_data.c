@@ -1,18 +1,12 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   init_data.c                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: ilzhabur <ilzhabur@student.42madrid.com    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/14 07:45:33 by ilzhabur          #+#    #+#             */
-/*   Updated: 2023/11/12 18:10:35 by ilzhabur         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "minishell.h"
 
-static bool	init_pwd_and_oldpwd(t_shell *sh)
+/* init_wds:
+*	Initializes working directory variables as a safeguard against
+*	environment PWD and OLDPWD being unset or otherwise not present
+*	in the environment. Used for cd builtin.
+*	Returns true if successful, false in case of error.
+*/
+static bool	init_wds(t_shell *sh)
 {
 	char	buff[PATH_MAX];
 	char	*wd;
@@ -37,6 +31,11 @@ static bool	init_pwd_and_oldpwd(t_shell *sh)
 	return (true);
 }
 
+/* create_env:
+*	Initializes a data variable with the contents of the environment
+*	variables inherited from the original shell.
+*	Returns 0 on failure, 1 on success.
+*/
 bool	create_env(t_shell *sh)
 {
 	char	*pwd;
@@ -75,6 +74,10 @@ bool	init_env(t_shell *sh, char **env)
 	return (true);
 }
 
+/* init_data:
+*	Initializes the data structure used in parsing and executing user input.
+*	Returns true if successful, false in case of error.
+*/
 bool	init_data(t_shell *sh, char **env)
 {
 	if (!init_env(sh, env))
@@ -83,7 +86,7 @@ bool	init_data(t_shell *sh, char **env)
 		"Failed to initialize environment variables", errno);
 		return (false);
 	}
-	if (!init_pwd_and_oldpwd(sh))
+	if (!init_wds(sh))
 	{
 		cmd_error_message("Error", NULL, \
 		"Failed to initialize working directories", errno);

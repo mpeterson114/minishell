@@ -1,33 +1,7 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: mpeterso <mpeterso@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/13 19:56:44 by ilzhabur          #+#    #+#             */
-/*   Updated: 2023/11/19 11:19:52 by mpeterso         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "minishell.h"
 
-static bool	start_check(t_shell *shell, int ac, char **av)
-{
-	if (ac != 1 && ac != 3)
-		return (usage_message(false));
-	if (ac == 3)
-	{
-		data->interactive = false;
-		if (!av[1] || (av[1] && ft_strcmp(av[1], "-c") != 0))
-			return (usage_message(false));
-		else if (!av[2] || (av[2] && av[2][0] == '\0'))
-			return (usage_message(false));
-	}
-	else
-		data->interactive = true;
-	return (true);
-}
+/* Runs parsing and execution in interactive mode, i.e. when minishell
+*	is started without arguments and provides a prompt for user input. */
 
 void	minishell(t_shell *sh)
 {
@@ -35,9 +9,9 @@ void	minishell(t_shell *sh)
 	{
 		signals_awaiting_input();
 		sh->line = readline(PROMPT);
-		sigquit_non_interactive();
-		sigint_non_interactive();
-		if (lexer_and_parser(sh))
+		sigquit_interactive();
+		sigint_interactive();
+		if (run_lexer_parser(sh))
 			g_sig = execute(sh);
 		free_data(sh, false);
 	}

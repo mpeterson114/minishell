@@ -24,8 +24,8 @@ bool	fill_heredoc(t_shell *sh, t_fds *io, int fd)
 		signals_awaiting_heredoc();
 		ft_putstr_fd("> ", 1);
 		line = get_next_line(STDIN_FILENO);
-		sigquit_non_interactive();
-		sigint_non_interactive();
+		sigquit_interactive();
+		sigint_interactive();
 		if (line)
 			remove_last_newline(line);
 		if (!evaluate_line(sh, &line, io, &ret))

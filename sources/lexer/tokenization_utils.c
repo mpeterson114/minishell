@@ -1,20 +1,5 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   tokenization_utils.c                               :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: ilzhabur <ilzhabur@student.42madrid.com    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/20 12:51:12 by ilzhabur          #+#    #+#             */
-/*   Updated: 2023/11/12 16:51:28 by ilzhabur         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "minishell.h"
 
-/**
- * Ilona
-*/
 int	add_delim(t_token **tokens, char *line, int pos, int delim_type)
 {
 	int		i;
@@ -44,9 +29,6 @@ int	add_delim(t_token **tokens, char *line, int pos, int delim_type)
 	return (OK);
 }
 
-/**
- * Ilona
-*/
 int	add_word(t_token **tokens, char *line, int pos, int start)
 {
 	int		i;
@@ -88,7 +70,7 @@ int	is_delimiter(char *line, int pos)
 		return (0);
 }
 
-int	updt_quote_status(int status, char *line, int pos)
+int	update_quote_status(int status, char *line, int pos)
 {
 	if (line[pos] == '\'' && status == QOK)
 		status = SQ;
@@ -101,10 +83,6 @@ int	updt_quote_status(int status, char *line, int pos)
 	return (status);
 }
 
-/**
- * 
- * Ilona
-*/
 int	add_word_or_delim(int *i, char *line, int start, t_shell *sh)
 {
 	int	is_delim;

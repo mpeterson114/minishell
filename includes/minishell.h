@@ -75,7 +75,7 @@ void		exit_minishell(t_shell *sh, int exno);
 // error.c
 int			cmd_error_message(char *command, char *detail, char *error_message,
 				int error_nb);
-void		syntax_errmsg(char *message, char *quote, int is_quote);
+void		syntax_err_msg(char *message, char *quote, int is_quote);
 
 // cleanup.c
 void		free_data(t_shell *sh, bool clear_history);
@@ -85,20 +85,20 @@ void		free_ptr(void *ptr);
 void		free_ptr_arr(char **tab);
 
 // parser_lexer.c
-bool		lexer_and_parser(t_shell *sh);
+bool		run_lexer_parser(t_shell *sh);
 
 // tokenization.c
 int			tokenization(t_shell *sh, char *str);
 
 // tokenization_utils.c
 int			add_word_or_delim(int *i, char *str, int start, t_shell *sh);
-int			updt_quote_status(int status, char *str, int i);
+int			update_quote_status(int status, char *str, int i);
 int			is_delimiter(char *str, int i);
 int			add_word(t_token **token_lst, char *str, int index, int start);
 int			add_delim(t_token **token_lst, char *str, int index, int type);
 
 // syntax.c
-int			check_syntax2(t_token **token_lst);
+int			valid_syntax(t_token **token_lst);
 
 // variable.c
 int			check_syntax(t_token **tokens);
@@ -214,14 +214,13 @@ int			exit_builtin(t_shell *sh, char **args);
 bool		is_var_no_quotes(t_token *tokens, int index);
 char		*remove_extra_spaces(const char *s);
 
-// signal.c
-void		ignore_ctrl_backslash(void);
+// signals.c
+void		sigint_interactive(void);
+void		sigquit_interactive(void);
+
+// signal_utils.c
 void		signals_awaiting_input(void);
-void		signals_ignoring(void);
-void		sigquit_non_interactive(void);
-void		sigint_non_interactive(void);
 void		signals_awaiting_heredoc(void);
-void		echoctl(int flag);
 
 // execute.c
 int			execute(t_shell *sh);

@@ -61,7 +61,7 @@ int	cmd_error_message(char *cmd, char *detail, char *message, int err_nbr)
 	return (err_nbr);
 }
 
-void	syntax_errmsg(char *message, char *quote, int in_quote)
+void	syntax_err_msg(char *message, char *quote, int in_quote)
 {
 	char	*output;
 

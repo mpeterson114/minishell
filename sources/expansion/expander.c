@@ -1,16 +1,10 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   expander.c                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: ilzhabur <ilzhabur@student.42madrid.com    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/09 23:25:37 by ilzhabur          #+#    #+#             */
-/*   Updated: 2023/11/12 16:36:22 by ilzhabur         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "minishell.h"
+
+/*
+*  After splitting the user's input into tokens, we have to expand 
+*  the variables. After the expansion is done, quote characters are
+*  removed from the original word unless they are between quotes.
+*/
 
 static void	update_q_status(t_token **node, char c)
 {
@@ -24,7 +18,7 @@ static void	update_q_status(t_token **node, char c)
 		(*node)->q_status = QOK;
 }
 
-static bool	is_next_char_a_div(char next)
+static bool	is_next_char_separator(char next)
 {
 	if (next == '$' || next == ' ' || next == '=' || next == '\0')
 		return (true);
@@ -44,6 +38,23 @@ static bool	dollar_between_quotes(char *content, int i)
 	return (false);
 }
 
+char	*var_expander_heredoc(t_shell *sh, char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == '$'
+			&& is_next_char_separator(str[i + 1]) == false
+			&& dollar_between_quotes(str, i) == false)
+			str = replace_str_heredoc(str, find_value(NULL, str + i, sh), i);
+		else
+			i++;
+	}
+	return (str);
+}
+
 int	expander(t_shell *sh, t_token **tokens)
 {
 	t_token	*tmp;
@@ -59,7 +70,7 @@ int	expander(t_shell *sh, t_token **tokens)
 			{
 				update_q_status(&tmp, tmp->content[i]);
 				if (tmp->content[i] == '$'
-					&& is_next_char_a_div(tmp->content[i + 1]) == false
+					&& is_next_char_separator(tmp->content[i + 1]) == false
 					&& dollar_between_quotes(tmp->content, i) == false
 					&& (tmp->q_status == QOK || tmp->q_status == DQ))
 					replace_variable(&tmp, \
@@ -71,21 +82,4 @@ int	expander(t_shell *sh, t_token **tokens)
 		tmp = tmp->next;
 	}
 	return (0);
-}
-
-char	*var_expander_heredoc(t_shell *sh, char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] == '$'
-			&& is_next_char_a_div(str[i + 1]) == false
-			&& dollar_between_quotes(str, i) == false)
-			str = replace_str_heredoc(str, find_value(NULL, str + i, sh), i);
-		else
-			i++;
-	}
-	return (str);
 }

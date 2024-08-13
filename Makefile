@@ -27,7 +27,7 @@ SRC	= 	main.c \
 			env/env_builtins.c \
 			env/env_utils.c \
 			env/shlvl.c \
-			lexer/parser_lexer.c \
+			lexer/lexer_parser.c \
 			lexer/tokenization.c \
 			lexer/tokenization_utils.c \
 			lexer/variable.c \
@@ -70,8 +70,8 @@ SRC	= 	main.c \
 			utils/error.c \
 			utils/init_data.c \
 			utils/cleanup.c \
-			signals/signal.c \
-			signals/signal_non_inter.c \
+			signals/signals.c \
+			signals/signal_utils.c \
 			debug/debug.c \
 			utils/is_functions.c \
 			utils/ft_strjoin_free.c  

@@ -41,7 +41,7 @@ static bool	line_is_space(char *line)
 	return (true);
 }
 
-bool	lexer_and_parser(t_shell *sh)
+bool	run_lexer_parser(t_shell *sh)
 {
 	if (!sh->line)
 		exit_builtin(sh, NULL);
