@@ -12,6 +12,23 @@
 
 #include "minishell.h"
 
+static bool	start_check(t_shell *shell, int ac, char **av)
+{
+	if (ac != 1 && ac != 3)
+		return (usage_message(false));
+	if (ac == 3)
+	{
+		data->interactive = false;
+		if (!av[1] || (av[1] && ft_strcmp(av[1], "-c") != 0))
+			return (usage_message(false));
+		else if (!av[2] || (av[2] && av[2][0] == '\0'))
+			return (usage_message(false));
+	}
+	else
+		data->interactive = true;
+	return (true);
+}
+
 void	minishell(t_shell *sh)
 {
 	while (1)
